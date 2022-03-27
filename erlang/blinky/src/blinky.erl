@@ -24,29 +24,16 @@
 -define(PIN, 2).
 
 start() ->
-    case verify_platform(atomvm:platform()) of
-        ok ->
-            gpio:set_pin_mode(?PIN, output),
-            loop(?PIN, low);
-        Error ->
-            Error
-    end.
+    gpio:set_pin_mode(?PIN, output),
+    loop(?PIN, low).
 
 loop(Pin, Level) ->
     io:format("Setting pin ~p ~p~n", [Pin, Level]),
     gpio:digital_write(Pin, Level),
     timer:sleep(1000),
-    loop(
-        Pin,
-        case Level of
-            low -> high;
-            high -> low
-        end
-    ).
+    loop(Pin, toggle(Level)).
 
-verify_platform(esp32) ->
-    ok;
-verify_platform(stm32) ->
-    ok;
-verify_platform(Platform) ->
-    {error, {unsupported_platform, Platform}}.
+toggle(high) ->
+    low;
+toggle(low) ->
+    high.
