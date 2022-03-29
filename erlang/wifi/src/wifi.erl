@@ -45,7 +45,7 @@ start_network() ->
             {disconnected, fun disconnected/0}
             | maps:get(sta, config:get())
         ]},
-        {sntp, [{endpoint, "pool.ntp.org"}]}
+        {sntp, [{host, "pool.ntp.org"}]}
     ],
     case network:start(Config) of
         ok ->
@@ -53,7 +53,6 @@ start_network() ->
         Error ->
             Error
     end.
-
 
 ap_started() ->
     io:format("AP started.~n").
@@ -67,13 +66,12 @@ sta_disconnected(Mac) ->
 sta_ip_assigned(Address) ->
     io:format("STA assigned address ~p~n", [Address]).
 
-
-
 connected() ->
     io:format("STA connected.~n").
 
 got_ip(IpInfo) ->
-    io:format("Got IP: ~p.~n", [IpInfo]).
+    io:format("Got IP: ~p.~n", [IpInfo]),
+    loop().
 
 disconnected() ->
     io:format("STA disconnected.~n").
@@ -82,3 +80,11 @@ verify_platform(esp32) ->
     ok;
 verify_platform(Platform) ->
     {error, {unsupported_platform, Platform}}.
+
+loop() ->
+    {{Year, Month, Day}, {Hour, Minute, Second}} = erlang:universaltime(),
+    io:format("Date: ~p/~p/~p ~p:~p:~p (~pms)~n", [
+        Year, Month, Day, Hour, Minute, Second, erlang:system_time(millisecond)
+    ]),
+    timer:sleep(5000),
+    loop().
