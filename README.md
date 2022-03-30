@@ -4,8 +4,6 @@ Welcome to the AtomVM Example Programs repository!
 
 This repository contains a small but growing collection of self-contained example programs demonstrate features of the [AtomVM](https://github.com/atomvm/AtomVM) Virtual Machine.  Examples are provided for both the Erlang and Elixir programming languages.
 
-> Note.  The current Elixir examples are under active development.  Stay tuned!
-
 Each example in this repository represents a self-contained AtomVM "application", which can be built and executed by the AtomVM virtual machine using a minimal set of tooling and to get you up to speed as quickly as possible.
 
 > The example applications in this repository are written for demonstration purposes only and may take short-cuts when it comes to error checking, performance, and beauty.  Use your best judgement about how to integrate these example programs into your applications.
@@ -40,3 +38,7 @@ In order to flash and run these programs on an ESP32 device, you will need, in a
 ### STM32 Requirements
 
 TODO
+
+### Generic Unix Requirements
+
+No additional requirements are needed, other than the above requirements, to build and test the example programs in this repository on the generic UNIX platform.
