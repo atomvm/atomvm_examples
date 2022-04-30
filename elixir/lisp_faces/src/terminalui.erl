@@ -62,8 +62,8 @@ handle_info(Msg, State) ->
     {noreply, State}.
 
 handle_input({keyboard, down, Char}, _Timestamp, _From, State) ->
-    NewModeState = maybe_input_change_mode(Char, State),
-    {NextState, Scene} = do_write([Char], NewModeState),
+    {Chars, NewModeState} = maybe_input_change_mode(Char, State),
+    {NextState, Scene} = do_write(Chars, NewModeState),
     {noreply, NextState, [{push, Scene}]};
 handle_input(_Other, _Timestamp, _From, State) ->
     {noreply, State}.
@@ -86,18 +86,26 @@ io_request({put_chars, unicode, Data}, FPid, FRef, State) ->
     FPid ! {io_reply, FRef, ok},
     R.
 
+maybe_input_change_mode($\b, #termstate{mode = get_line} = State) ->
+    case State#termstate.buffer of
+        [] ->
+            {[], State};
+        Buffer ->
+            NewBuffer = removelast(Buffer),
+            {[$\b], State#termstate{buffer = NewBuffer}}
+    end;
 maybe_input_change_mode($\n, #termstate{mode = get_line} = State) ->
     NewBuffer = State#termstate.buffer ++ [$\n],
     Reply = {io_reply, State#termstate.pending_ref, NewBuffer},
     State#termstate.pending_pid ! Reply,
-    State#termstate{
+    {[$\n], State#termstate{
         mode = default, pending_pid = undefined, pending_ref = undefined, buffer = undefined
-    };
+    }};
 maybe_input_change_mode(Char, #termstate{mode = get_line} = State) ->
     NewBuffer = State#termstate.buffer ++ [Char],
-    State#termstate{buffer = NewBuffer};
+    {[Char], State#termstate{buffer = NewBuffer}};
 maybe_input_change_mode(_Char, State) ->
-    State.
+    {[], State}.
 
 lines_to_scene([], _Pos) ->
     [];
@@ -114,8 +122,22 @@ append([], Lines) ->
 append([H | T], Lines) ->
     NewLines = append(H, Lines),
     append(T, NewLines);
+append($\b, Lines) ->
+    [LastLine | Tail] = Lines,
+    [removelast(LastLine) | Tail];
 append($\n, Lines) ->
     [[] | Lines];
 append(Char, Lines) when is_integer(Char) ->
     [LastLine | Tail] = Lines,
     [LastLine ++ [Char] | Tail].
+
+removelast([]) ->
+    [];
+removelast(L) ->
+    Acc = removelast(L, []),
+    lists:reverse(Acc).
+
+removelast([_H], Acc) ->
+    Acc;
+removelast([H | T], Acc) ->
+    removelast(T, [H | Acc]).
