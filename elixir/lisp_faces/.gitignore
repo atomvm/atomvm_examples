@@ -1,3 +1,7 @@
+# Copyright 2022 Davide Bettio <davide@uninstall.it>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
@@ -22,3 +26,5 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 lisp_faces-*.tar
 
+# Ignore all .avm files
+*.avm

@@ -1,21 +1,37 @@
-# LispFaces
+<!---
+  Copyright 2022 Davide Bettio <davide@uninstall.it>
 
-**TODO: Add description**
+  SPDX-License-Identifier: Apache-2.0
+-->
 
-## Installation
+# LISP Faces
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `lisp_faces` to your list of dependencies in `mix.exs`:
+This example turns your M5Stack Faces into a pocket LISP computer using AtomVM and its internal
+LISP interpreter.
 
-```elixir
-def deps do
-  [
-    {:lisp_faces, "~> 0.1.0"}
-  ]
-end
+This example has been tested with OTP 21, but any OTP version previous to 24 should work.
+
+In order to get it working you need to build and flash AtomVM with an additional display component
+for the [ILI934x display](https://github.com/atomvm/avm_ili934x).
+
+## Build
+
+avm_deps directory should be created, and it should be populated with any library that is not
+already installed in lib partition.
+
+```
+mkdir avm_deps`
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/lisp_faces](https://hexdocs.pm/lisp_faces).
+In order to build the application AVM file (`lisp_faces.avm`) just run:
 
+```
+mix atomvm.packbeam
+```
+
+## Flash
+
+Just run:
+```
+mix atomvm.esp32.flash
+```
