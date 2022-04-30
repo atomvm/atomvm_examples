@@ -37,6 +37,10 @@
 -define(X_MARGIN, 8).
 -define(Y_MARGIN, 8).
 -define(LINE_H, 16).
+-define(WIDTH, 320).
+-define(HEIGHT, 240).
+-define(FGCOLOR, 16#FFFFFF).
+-define(BGCOLOR, 16#000000).
 
 -record(termstate, {
     lines = [[]], cursor_x = 0, cursor_y = 0, mode = default, buffer, pending_pid, pending_ref
@@ -71,7 +75,7 @@ handle_input(_Other, _Timestamp, _From, State) ->
 do_write(Any, State) ->
     NextLines = append(Any, State#termstate.lines),
     RLines = lists:reverse(NextLines),
-    LinesScene = lines_to_scene(RLines, 0),
+    LinesScene = [{rect, 0, 0, ?WIDTH, ?HEIGHT, ?BGCOLOR} | lines_to_scene(RLines, 0)],
     % TODO: add cursor: %++ [{rect, ?X_MARGIN + State#termstate.cursor_x, ?Y_MARGIN + State#termstate.cursor_y, 8, ?LINE_H, 16#00}],
     Scene = LinesScene,
     {State#termstate{lines = NextLines}, Scene}.
@@ -111,7 +115,7 @@ lines_to_scene([], _Pos) ->
     [];
 lines_to_scene([H | T], Pos) ->
     [
-        {text, ?X_MARGIN, ?Y_MARGIN + ?LINE_H * Pos, ?FONT, 16#00, 16#FFFFFF, H}
+        {text, ?X_MARGIN, ?Y_MARGIN + ?LINE_H * Pos, ?FONT, ?FGCOLOR, ?BGCOLOR, H}
         | lines_to_scene(T, Pos + 1)
     ].
 

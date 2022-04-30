@@ -22,8 +22,7 @@ defmodule Main do
   def start() do
     :erlang.display("Starting Elixir LISP Faces Example")
 
-    # let's try a bigger display size in case we are running SDL display
-    display = :erlang.open_port({:spawn, "display"}, height: 540, width: 960)
+    display = :erlang.open_port({:spawn, "display"}, width: 320, height: 240)
 
     # SDL display has a builtin in keyboard input support
     # FIXME: Using :system_architecture to detect if we are using SDL is just a workaround
