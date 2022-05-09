@@ -1,15 +1,16 @@
-defmodule Blinky.MixProject do
+defmodule HelloWorld.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :blinky,
+      app: :HelloWorld,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       atomvm: [
-        start: Blinky
+        start: HelloWorld,
+        flash_offset: 0x210000
       ]
     ]
   end
@@ -24,7 +25,7 @@ defmodule Blinky.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:exavmlib, "~> 0.1.0"},
+      #{:exavmlib, "~> 0.1.0"},
       {:exatomvm, git: "https://github.com/atomvm/ExAtomVM/"}
     ]
   end
