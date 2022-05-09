@@ -11,7 +11,7 @@ For more information about programming on the AtomVM platform, see the [AtomVM P
 | Platform | Supported |
 |----------|-----------|
 | `esp32`  | ✅ |
-| `stm32`  | ✅ |
+| `stm32`  | ❌ |
 | `generic_unix`  | ✅ |
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).

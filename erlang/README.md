@@ -9,7 +9,7 @@ Some example programs can only run on specific platform.  The following table su
 
 | Example Program | esp32 | stm32 | generic_unix |
 |-----------------|-------|-------|--------------|
-| arepl_example   | ✅ | ❌ | ❌ |
+| arepl_example   | ✅ | ❌ | ✅ |
 | blinky          | ✅ | ✅ | ❌ |
 | deep_sleep      | ✅ | ❌ | ❌ |
 | esp_nvs         | ✅ | ❌ | ❌ |
