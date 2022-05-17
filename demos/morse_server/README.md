@@ -45,7 +45,7 @@ For more information about programming on the AtomVM platform, see the [AtomVM P
 | `stm32`        |    ❌     |
 | `generic_unix` |    ❌     |
 
-For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).
+For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../../erlang/README.md).
 
 
 
