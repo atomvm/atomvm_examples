@@ -21,7 +21,7 @@
 defmodule HelloWorld do
 
   def start() do
-    :io.format("Hello World~n")
+    :io.format('Hello World~n')
   end
 
 end
