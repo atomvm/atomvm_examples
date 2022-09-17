@@ -28,9 +28,9 @@ defmodule Blinky do
   end
 
   defp loop(pin, level) do
-    IO.format("Setting pin ~p ~p~n", [pin, level])
+    :io.format('Setting pin ~p ~p~n', [pin, level])
     GPIO.digital_write(pin, level)
-    Timer.sleep(1000)
+    :timer.sleep(1000)
     loop(pin, toggle(level))
   end
 
