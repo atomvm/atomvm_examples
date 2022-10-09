@@ -19,7 +19,6 @@
 #
 
 defmodule Blinky do
-
   @pin 2
 
   def start() do
@@ -30,7 +29,7 @@ defmodule Blinky do
   defp loop(pin, level) do
     :io.format('Setting pin ~p ~p~n', [pin, level])
     GPIO.digital_write(pin, level)
-    :timer.sleep(1000)
+    Process.sleep(1000)
     loop(pin, toggle(level))
   end
 
@@ -41,5 +40,4 @@ defmodule Blinky do
   defp toggle(:low) do
     :high
   end
-
 end
