@@ -38,7 +38,7 @@ The following generic instructions apply to the Erlang examples in this reposito
 
 To build and package this application into an AtomVM AVM file, use the `packbeam` target:
 
-    shell$ rebar3 packbeam
+    shell$ rebar3 packbeam -p -f -i
 
 This target will create the `read_priv.avm` file in the `./_build/default/lib/` directory.
 

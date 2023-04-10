@@ -48,7 +48,7 @@ start_network() ->
         {sntp, [{host, "pool.ntp.org"}]}
     ],
     case network:start(Config) of
-        ok ->
+        {ok, _Pid} ->
             timer:sleep(infinity);
         Error ->
             Error

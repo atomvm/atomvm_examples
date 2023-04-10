@@ -18,7 +18,7 @@
 % SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
 %
 {application, udp_server, [
-    {description, "An OTP library"},
+    {description, "An AtomVM application"},
     {vsn, "0.1.0"},
     {registered, []},
     {applications, [

@@ -30,7 +30,10 @@ start() ->
         word_size => erlang:system_info(wordsize),
         system_architecture => erlang:system_info(system_architecture)
     },
-    io:format("SystemInfo: ~p~n", [SystemInfo]),
+    io:format("SystemInfo:~n"),
+    io:format("===========~n"),
+    print_map(SystemInfo),
+    io:format("~n"),
 
     PlatformInfo =
         case atomvm:platform() of
@@ -45,18 +48,41 @@ start() ->
             _ ->
                 #{}
         end,
-    io:format("PlatformInfo: ~p~n", [PlatformInfo]),
+    io:format("PlatformInfo:~n"),
+    io:format("=============~n"),
+    print_map(PlatformInfo),
+    io:format("~n"),
 
     Processes = erlang:processes(),
     ProcessInfo = [{Process, get_process_info(Process)} || Process <- Processes],
-    io:format("ProcessInfo: ~p~n", [ProcessInfo]),
+    io:format("ProcessInfo:~n"),
+    io:format("============~n"),
+    print_process_info(ProcessInfo),
+    io:format("~n"),
 
     ok.
 
 get_process_info(Pid) ->
-    [
+    maps:from_list([
         erlang:process_info(Pid, heap_size),
         erlang:process_info(Pid, stack_size),
         erlang:process_info(Pid, message_queue_len),
         erlang:process_info(Pid, memory)
-    ].
+    ]).
+
+print_process_info(ProcessInfo) ->
+    [begin io:format("Pid: ~p~n", [Pid]), print_map(Info) end || {Pid, Info} <- ProcessInfo].
+
+print_map(Map) ->
+    maps:fold(
+        fun(Key, Value, _) ->
+           print_entry(Key, Value)
+        end,
+        ok,
+        Map
+    ).
+
+print_entry(Key, Value) when is_list(Value) ->
+    io:format("~p: ~s~n", [Key, Value]);
+print_entry(Key, Value) ->
+    io:format("~p: ~p~n", [Key, Value]).
