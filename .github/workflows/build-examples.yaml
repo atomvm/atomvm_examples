@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
+      fail-fast: true
 
     steps:
 
@@ -38,5 +38,6 @@ jobs:
 
     - name: "Build Erlang Example Programs"
       run: |
+        REBAR="/tmp/rebar3/rebar3"
         EXAMPLES="arepl_example blinky esp_nvs deep_sleep gpio_interrupt i2c_example hello_world ledc_example read_priv spi_example system_info tcp_client tcp_server uart_example udp_client udp_server wifi"
-        for i in ${EXAMPLES}; do cd ./erlang/$i; /tmp/rebar3/rebar3 packbeam -p -f -i; cd ../..; done
+        for i in ${EXAMPLES}; do cd ./erlang/$i; ${REBAR} fmt -c || exit 1; ${REBAR} packbeam -p -f -i || exit 1; cd ../..; done
