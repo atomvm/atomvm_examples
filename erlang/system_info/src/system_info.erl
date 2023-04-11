@@ -71,12 +71,18 @@ get_process_info(Pid) ->
     ]).
 
 print_process_info(ProcessInfo) ->
-    [begin io:format("Pid: ~p~n", [Pid]), print_map(Info) end || {Pid, Info} <- ProcessInfo].
+    [
+        begin
+            io:format("Pid: ~p~n", [Pid]),
+            print_map(Info)
+        end
+     || {Pid, Info} <- ProcessInfo
+    ].
 
 print_map(Map) ->
     maps:fold(
         fun(Key, Value, _) ->
-           print_entry(Key, Value)
+            print_entry(Key, Value)
         end,
         ok,
         Map

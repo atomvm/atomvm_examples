@@ -6,14 +6,14 @@ This repository contains a small but growing collection of self-contained exampl
 
 Each example in this repository represents a self-contained AtomVM "application", which can be built and executed by the AtomVM virtual machine using a minimal set of tooling and to get you up to speed as quickly as possible.
 
-> The example applications in this repository are written for demonstration purposes only and may take short-cuts when it comes to error checking, performance, and beauty.  Use your best judgement about how to integrate these example programs into your applications.
+> The example applications in this repository are written for demonstration purposes only and may take short-cuts when it comes to error checking, performance, and aesthetics.  Use your best judgement about how to integrate these example programs into your applications.
 
 ## Requirements
 
 The example programs in this collection require the following:
 
 * A computer running MacOS, Linux, or FreeBSD
-* [Erlang/OTP](https://www.erlang.org) Version 21, 22, or 23
+* [Erlang/OTP](https://www.erlang.org) (any version supported by AtomVM)
 * Erlang applications:
     * [rebar3](https://rebar3.readme.io)
 * Elixir applications:
@@ -42,3 +42,9 @@ TODO
 ### Generic Unix Requirements
 
 No additional requirements are needed, other than the above requirements, to build and test the example programs in this repository on the generic UNIX platform.
+
+## Status
+
+This repo uses Github Workflows to run some basic source code checks and build tests.
+
+[![Build and Test](https://github.com/atomvm/atomvm_examples/actions/workflows/build-examples.yaml/badge.svg?branch=master)](https://github.com/atomvm/atomvm_examples/actions/workflows/build-examples.yaml)
