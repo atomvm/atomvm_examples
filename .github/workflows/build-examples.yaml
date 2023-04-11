@@ -1,0 +1,42 @@
+#
+#  Copyright 2023 Fred Dushin <fred@dushin.net>
+#
+#  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+#
+
+name: "Build Examples"
+
+on: ["push", "pull_request"]
+
+jobs:
+  build_erlang_examples:
+    name: "Build Erlang Examples"
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: "24"
+        elixir-version: "1.11"
+
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    # - name: "APT update"
+    #   run: sudo apt update -y
+
+    - name: "Build rebar3"
+      run: |
+        cd /tmp
+        git clone https://github.com/erlang/rebar3.git
+        cd rebar3
+        ./bootstrap
+
+    - name: "Build Erlang Example Programs"
+      run: |
+        EXAMPLES="arepl_example blinky esp_nvs deep_sleep gpio_interrupt i2c_example hello_world ledc_example read_priv spi_example system_info tcp_client tcp_server uart_example udp_client udp_server wifi"
+        for i in ${EXAMPLES}; do cd ./erlang/$i; /tmp/rebar3/rebar3 packbeam -p -f -i; cd ../..; done
