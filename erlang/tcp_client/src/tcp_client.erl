@@ -40,12 +40,18 @@ loop(Socket) ->
         ok ->
             io:format("Sent ~p to ~p\n", [SendPacket, peer_address(Socket)]),
             receive
-                {tcp_closed, _Socket} ->
+                {tcp_closed, Socket} ->
                     io:format("Connection closed.~n"),
                     ok;
-                {tcp, _Socket, ReceivedPacket} ->
+                {tcp_error, Socket, Error} ->
+                    io:format("TCP error ~p.~n", [Error]),
+                    ok;
+                {tcp, Socket, ReceivedPacket} ->
                     io:format("Received ~p from ~p~n", [ReceivedPacket, peer_address(Socket)]),
                     timer:sleep(1000),
+                    loop(Socket);
+                Other ->
+                    io:format("Unexpected message ~p~n", [Other]),
                     loop(Socket)
             end;
         Error ->
