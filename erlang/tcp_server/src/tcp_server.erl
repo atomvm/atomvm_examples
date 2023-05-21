@@ -42,23 +42,29 @@ accept(ListenSocket) ->
                 local_address(Socket), peer_address(Socket)
             ]),
             spawn(fun() -> accept(ListenSocket) end),
-            echo();
+            echo(Socket);
         Error ->
             io:format("An error occurred accepting connection: ~p~n", [Error])
     end.
 
-echo() ->
+echo(Socket) ->
     io:format("Waiting to receive data...~n"),
     receive
-        {tcp_closed, _Socket} ->
+        {tcp_closed, Socket} ->
             io:format("Connection closed.~n"),
+            ok;
+        {tcp_error, Socket, Error} ->
+            io:format("TCP error ~p.~n", [Error]),
             ok;
         {tcp, Socket, Packet} ->
             io:format("Received packet ~p from ~p.  Echoing back...~n", [
                 Packet, peer_address(Socket)
             ]),
             gen_tcp:send(Socket, Packet),
-            echo()
+            echo(Socket);
+        Other ->
+            io:format("Unexpected message ~p~n", [Other]),
+            echo(Socket)
     end.
 
 local_address(Socket) ->
