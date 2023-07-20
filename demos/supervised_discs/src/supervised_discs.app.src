@@ -1,0 +1,13 @@
+{application, supervised_discs, [
+    {description, "Supervised discs"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {applications, [
+        kernel, stdlib
+    ]},
+    {env,[]},
+    {mod, {supervised_discs_app, []}},
+    {modules, []},
+    {licenses, ["Apache 2.0"]},
+    {links, []}
+ ]}.
