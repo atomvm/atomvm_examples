@@ -1,4 +1,0 @@
-_build/*
-_checkouts/*
-src/config.erl
-rebar.lock

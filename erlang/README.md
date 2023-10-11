@@ -62,6 +62,10 @@ Use a serial console program, such as `minicom`, to attach to the device over US
 
 TODO
 
+### Running on the Raspberry Pico platform
+
+TODO
+
 ### Running on Generic Unix platforms
 
 To run this application on a generic UNIX platform, supply the path to the generated AVM file, together with the AtomVM core library
