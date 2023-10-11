@@ -34,7 +34,7 @@ start() ->
         ]}
     ],
     case network:start(Config) of
-        ok ->
+        {ok, _Pid} ->
             wait_for_message();
         Error ->
             erlang:display(Error)
@@ -107,7 +107,6 @@ get_gpio() ->
     case whereis(gpio) of
         undefined ->
             GPIO = gpio:open(),
-            register(gpio, GPIO),
             GPIO;
 
         GPIO ->
@@ -128,19 +127,19 @@ blink_led(_GPIO, _GPIONum, []) ->
 blink_led(GPIO, GPIONum, [H | T]) ->
     case H of
         $\s ->
-            gpio:set_level(GPIO, GPIONum, 0),
+            gpio:set_level(GPIO, GPIONum, low),
             timer:sleep(120);
 
         $. ->
-            gpio:set_level(GPIO, GPIONum, 1),
+            gpio:set_level(GPIO, GPIONum, high),
             timer:sleep(120),
-            gpio:set_level(GPIO, GPIONum, 0),
+            gpio:set_level(GPIO, GPIONum, low),
             timer:sleep(120);
 
         $- ->
-            gpio:set_level(GPIO, GPIONum, 1),
+            gpio:set_level(GPIO, GPIONum, high),
             timer:sleep(120 * 3),
-            gpio:set_level(GPIO, GPIONum, 0),
+            gpio:set_level(GPIO, GPIONum, low),
             timer:sleep(120)
     end,
     blink_led(GPIO, GPIONum, T).
