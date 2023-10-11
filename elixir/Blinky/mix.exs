@@ -25,7 +25,6 @@ defmodule Blinky.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:exavmlib, "~> 0.1.0"},
       {:exatomvm, git: "https://github.com/atomvm/ExAtomVM/"}
     ]
   end
