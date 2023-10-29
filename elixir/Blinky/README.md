@@ -2,14 +2,14 @@
 
 Welcome to the `Blinky` AtomVM application.
 
-The `Blinky` AtomVM application will blink an LED attached to pin 2 on and off once every second.
+The `Blinky` AtomVM application will blink an LED attached to pin 2 (`stm32` pin `{:b, 0}`) on and off once every second.
 
-> Note.  This example program only runs on the `esp32` and `stm32` platforms.
+> Note.  This example program only runs on the `esp32`,`stm32`, and `pico` platforms.
 
-To run this example, connect a 1k ohm resistor in series with a 3.3v LED between IO pin 2 and GND.
+To run this example, depending on how bright you want your led, connect a 220 ohm to 1k ohm resistor in series with a 3.3v LED between IO pin 2 and GND.
 
     +-----------+
-    |           |    1k ohm
+    |           |    330 ohm
     |       IO2 o--- \/\/\/\ ---+
     |           |   resistor    |
     |           |               |
@@ -19,7 +19,11 @@ To run this example, connect a 1k ohm resistor in series with a 3.3v LED between
     +-----------+      LED
         ESP32
 
-> Note.  Many ESP32 development boards already attach pin 2 to an on-board LED.
+> ESP32 Note.  Many ESP32 development boards already attach pin 2 to an on-board LED.
+
+> STM32 Note. The Nucleo line of boards all have three leds on `{:b, [0, 7, 14]}`.
+
+> Pico-W Note. To use the onboard LED on a `picow` edit lib/Blinky.ex and comment out the current `@pin` definition (change to: `# @pin 2`), and uncomment the definition for the picow onboard LED `@pin` definition: `@pin {:wl, 0}`.
 
 For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
 

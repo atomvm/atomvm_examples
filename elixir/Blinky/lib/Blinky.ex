@@ -19,11 +19,14 @@
 #
 
 defmodule Blinky do
+  # Pin 2 works on any pico device with an external LED
   @pin 2
+  # Comment out above and uncomment below to use Pico W onboard LED
+  # @pin {:wl, 0}
 
   def start() do
-    GPIO.set_pin_mode(@pin, :output)
-    loop(@pin, :low)
+    platform_gpio_setup()
+    loop(pin(), :low)
   end
 
   defp loop(pin, level) do
@@ -40,4 +43,31 @@ defmodule Blinky do
   defp toggle(:low) do
     :high
   end
+
+  defp pin() do
+    case :atomvm.platform() do
+      :esp32 -> 2
+      :pico -> @pin
+      :stm32 -> {:b, [0]}
+      unsupported -> :erlang.exit({:unsupported_platform, unsupported})
+    end
+  end
+
+  defp platform_gpio_setup() do
+    case :atomvm.platform() do
+      :esp32 -> GPIO.set_pin_mode(pin(), :output)
+      :stm32 -> GPIO.set_pin_mode(pin(), :output)
+      :pico ->
+        case @pin do
+          {:wl, 0} -> :ok
+          pin ->
+            GPIO.init(pin)
+            GPIO.set_pin_mode(pin, :output)
+        end
+      unsupported ->
+        :io.format("Platform ~p is not supported.~n", [unsupported])
+        :erlang.exit({:error, {:unsupported_platform, unsupported}})
+    end
+  end
+
 end
