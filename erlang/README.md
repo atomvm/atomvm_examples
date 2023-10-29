@@ -13,7 +13,7 @@ Some example programs can only run on specific platform.  The following table su
 | blinky          | ✅ | ✅ | ✅ | ✦ | ❌ |
 | deep_sleep      | ✅ | ❌ | ❌ | ❌ | ❌ |
 | esp_nvs         | ✅ | ❌ | ❌ | ❌ | ❌ |
-| gpio_interrupt  | ✅ | ❌ | ❌ | ❌ | ❌ |
+| gpio_interrupt  | ✅ | ✅ | ❌ | ❌ | ❌ |
 | hello_world     | ✅ | ✅ | ✅ | ✅ | ✅ |
 | http_server_example | ✅ | ❌ | ❌ | ❌ | ✅ |
 | i2c_example     | ✅ | ❌ | ❌ | ❌ | ❌ |
