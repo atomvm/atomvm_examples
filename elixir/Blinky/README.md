@@ -23,12 +23,4 @@ To run this example, connect a 1k ohm resistor in series with a 3.3v LED between
 
 For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
 
-## Supported Platforms
-
-| Platform | Supported |
-|----------|-----------|
-| `esp32`  | ✅ |
-| `stm32`  | ✅ |
-| `generic_unix`  | ❌ |
-
 For general information about building and executing Elixir AtomVM example programs, see the Elixir example program [README](../README.md).
