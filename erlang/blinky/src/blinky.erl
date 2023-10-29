@@ -21,11 +21,14 @@
 -module(blinky).
 -export([start/0]).
 
+% External LED on pin 2 will work with all pico devices.
 -define(PIN, 2).
+% Comment out above and uncomment the following line to use pico-w onboard LED.
+% -define(PIN, {wl, 0}).
 
 start() ->
-    gpio:set_pin_mode(?PIN, output),
-    loop(?PIN, low).
+    platform_gpio_setup(atomvm:platform()),
+    loop(pin(), low).
 
 loop(Pin, Level) ->
     io:format("Setting pin ~p ~p~n", [Pin, Level]),
@@ -37,3 +40,33 @@ toggle(high) ->
     low;
 toggle(low) ->
     high.
+
+pin() ->
+    case atomvm:platform() of
+        esp32 ->
+            2;
+        pico ->
+            ?PIN;
+        stm32 ->
+            {b, 0};
+        Platform ->
+            erlang:exit({unsupported_platform, Platform})
+    end.
+
+platform_gpio_setup(esp32) ->
+    gpio:set_pin_mode(pin(), output);
+platform_gpio_setup(stm32) ->
+    gpio:set_pin_mode(pin(), output);
+platform_gpio_setup(pico) ->
+    case ?PIN of
+        {wl, 0} ->
+            % Pico-W needs no setup for extra "WL" pins
+            ok;
+        Pin ->
+            % Setup for Pico GPIO pins
+            gpio:init(Pin),
+            gpio:set_pin_mode(Pin, output)
+    end;
+platform_gpio_setup(Platform) ->
+    io:format("Platform ~p is not supported.~n", [Platform]),
+    erlang:exit({error, {unsupported_platform, Platform}}).
