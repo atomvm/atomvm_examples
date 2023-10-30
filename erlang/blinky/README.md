@@ -25,6 +25,6 @@ To run this example, depending on how bright you want your led, connect a 220 oh
 
 > Pico W Note. To use the onboard LED on a `picow` edit src/blinky.erl and comment out the current `PIN` definition (change to: `% -define(PIN, 2).`), and uncomment the definition for the `picow` onboard LED definition: `-define(PIN, {wl, 0}).`
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).
