@@ -17,6 +17,6 @@ This application will wait in a loop for interrupt signals when GPIO pin 2 is ri
     Waiting for interrupt ... Interrupt on pin 2
     Waiting for interrupt ...
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).

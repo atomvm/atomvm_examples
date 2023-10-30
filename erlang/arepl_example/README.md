@@ -4,7 +4,7 @@ Welcome to the `arepl_example` AtomVM application.
 
 The `arepl_example` AtomVM application demonstrates the use of the `arepl` LISP interpreter.
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
 
 ## Build and Run Instructions
 

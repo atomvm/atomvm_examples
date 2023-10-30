@@ -9,9 +9,11 @@ Some example programs can only run on specific platform.  The following table su
 
 | Example Program | esp32 | stm32 | Pico | Pico W | generic_unix |
 |-----------------|-------|-------|------|--------|--------------|
-| Blinky          | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Blinky          | ✅ | ✅ | ✅ | ✦ | ❌ |
 | HelloWorld      | ✅ | ✅ | ✅ | ✅ | ✅ |
 | LEDC_Example    | ✅ | ❌ | ❌ | ❌ | ❌ |
+
+✦ Works, but requires editing to use onboard LED, see the README in the examples directory.
 
 To build and run an example in this directory, change your working directory to the corresponding example program, and execute the generic instructions below.
 
