@@ -7,10 +7,11 @@ The applications in this directory make use of the [AtomVM Mix Plugin](https://g
 
 Some example programs can only run on specific platform.  The following table summarizes the platforms on which the Elixir example programs can be run.
 
-| Example Program | esp32 | stm32 | generic_unix |
-|-----------------|-------|-------|--------------|
-| Blinky          | ✅ | ✅ | ❌ |
-| HelloWorld      | ✅ | ✅ | ✅ |
+| Example Program | esp32 | stm32 | Pico | Pico W | generic_unix |
+|-----------------|-------|-------|------|--------|--------------|
+| Blinky          | ✅ | ✅ | ❌ | ❌ | ❌ |
+| HelloWorld      | ✅ | ✅ | ✅ | ✅ | ✅ |
+| LEDC_Example    | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 To build and run an example in this directory, change your working directory to the corresponding example program, and execute the generic instructions below.
 

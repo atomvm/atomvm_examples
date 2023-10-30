@@ -10,12 +10,4 @@ For this test, note the presence of the `favicon-32x32.png` in the `priv` direct
 
 For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.net/programmers-guide.html).
 
-## Supported Platforms
-
-| Platform | Supported |
-|----------|-----------|
-| `esp32`  | ✅ |
-| `stm32`  | ✅ |
-| `generic_unix`  | ✅ |
-
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).
