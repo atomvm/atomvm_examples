@@ -27,7 +27,7 @@ start() ->
     Port = maps:get(port, config:get()),
     case gen_tcp:listen(Port, []) of
         {ok, ListenSocket} ->
-            io:format("Listening on ~p.~n", [local_address(ListenSocket)]),
+            io:format("Listening on ~s.~n", [local_address(ListenSocket)]),
             spawn(fun() -> accept(ListenSocket) end),
             timer:sleep(infinity);
         Error ->
@@ -38,7 +38,7 @@ accept(ListenSocket) ->
     io:format("Waiting to accept connection...~n"),
     case gen_tcp:accept(ListenSocket) of
         {ok, Socket} ->
-            io:format("Accepted connection.  local: ~p peer: ~p~n", [
+            io:format("Accepted connection.  local: ~s peer: ~s~n", [
                 local_address(Socket), peer_address(Socket)
             ]),
             spawn(fun() -> accept(ListenSocket) end),
@@ -57,7 +57,7 @@ echo(Socket) ->
             io:format("TCP error ~p.~n", [Error]),
             ok;
         {tcp, Socket, Packet} ->
-            io:format("Received packet ~p from ~p.  Echoing back...~n", [
+            io:format("Received packet ~p from ~s.  Echoing back...~n", [
                 Packet, peer_address(Socket)
             ]),
             gen_tcp:send(Socket, Packet),
@@ -85,7 +85,7 @@ maybe_start_network(esp32) ->
     case network:wait_for_sta(Config, 30000) of
         {ok, {Address, Netmask, Gateway}} ->
             io:format(
-                "Acquired IP address: ~p Netmask: ~p Gateway: ~p~n",
+                "Acquired IP address: ~s Netmask: ~s Gateway: ~s~n",
                 [to_string(Address), to_string(Netmask), to_string(Gateway)]
             ),
             ok;
