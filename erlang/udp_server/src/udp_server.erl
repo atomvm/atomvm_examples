@@ -27,7 +27,7 @@ start() ->
     Port = maps:get(port, config:get()),
     case gen_udp:open(Port, [{active, true}]) of
         {ok, Socket} ->
-            io:format("Opened UDP socket on ~p.~n", [local_address(Socket)]),
+            io:format("Opened UDP socket on ~s.~n", [local_address(Socket)]),
             loop();
         Error ->
             io:format("An error occurred opening UDP socket: ~p~n", [Error])
@@ -37,7 +37,7 @@ loop() ->
     io:format("Waiting to receive data...~n"),
     receive
         {udp, _Socket, Address, Port, Packet} ->
-            io:format("Received UDP packet ~p from ~p~n", [Packet, to_string({Address, Port})])
+            io:format("Received UDP packet ~p from ~s~n", [Packet, to_string({Address, Port})])
     end,
     loop().
 
@@ -55,7 +55,7 @@ maybe_start_network(esp32) ->
     case network:wait_for_sta(Config, 30000) of
         {ok, {Address, Netmask, Gateway}} ->
             io:format(
-                "Acquired IP address: ~p Netmask: ~p Gateway: ~p~n",
+                "Acquired IP address: ~s Netmask: ~s Gateway: ~s~n",
                 [to_string(Address), to_string(Netmask), to_string(Gateway)]
             ),
             ok;

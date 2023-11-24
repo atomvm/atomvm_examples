@@ -26,19 +26,19 @@ start() ->
     ok = maybe_start_network(atomvm:platform()),
     case gen_udp:open(0) of
         {ok, Socket} ->
-            io:format("Opened UDP socket on ~p.~n", [local_address(Socket)]),
+            io:format("Opened UDP socket on ~s.~n", [local_address(Socket)]),
             loop(Socket);
         Error ->
             io:format("An error occurred opening UDP socket: ~p~n", [Error])
     end.
 
 loop(Socket) ->
-    Packet = <<"AtomVM rocks!">>,
+    Packet = <<"AtomVM">>,
     Host = maps:get(host, config:get()),
     Port = maps:get(port, config:get()),
     case gen_udp:send(Socket, Host, Port, Packet) of
         ok ->
-            io:format("Sent ~p to ~p:~p~n", [Packet, Host, Port]);
+            io:format("Sent ~p to ~s~n", [Packet, to_string({Host, Port})]);
         Error ->
             io:format("An error occurred sending a packet: ~p~n", [Error])
     end,
@@ -59,7 +59,7 @@ maybe_start_network(esp32) ->
     case network:wait_for_sta(Config, 30000) of
         {ok, {Address, Netmask, Gateway}} ->
             io:format(
-                "Acquired IP address: ~p Netmask: ~p Gateway: ~p~n",
+                "Acquired IP address: ~s Netmask: ~s Gateway: ~s~n",
                 [to_string(Address), to_string(Netmask), to_string(Gateway)]
             ),
             ok;

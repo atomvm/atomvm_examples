@@ -26,19 +26,20 @@ start() ->
     ok = maybe_start_network(atomvm:platform()),
     Host = maps:get(host, config:get()),
     Port = maps:get(port, config:get()),
+    io:format("Attempting to connect to host ~p on port ~p ...~n", [Host, Port]),
     case gen_tcp:connect(Host, Port, []) of
         {ok, Socket} ->
-            io:format("Connected to ~p from ~p~n", [peer_address(Socket), local_address(Socket)]),
+            io:format("Connected to ~s from ~s~n", [peer_address(Socket), local_address(Socket)]),
             loop(Socket);
         Error ->
             io:format("An error occurred connecting: ~p~n", [Error])
     end.
 
 loop(Socket) ->
-    SendPacket = <<"AtomVM rocks!">>,
+    SendPacket = <<"AtomVM">>,
     case gen_tcp:send(Socket, SendPacket) of
         ok ->
-            io:format("Sent ~p to ~p\n", [SendPacket, peer_address(Socket)]),
+            io:format("Sent ~p to ~s\n", [SendPacket, peer_address(Socket)]),
             receive
                 {tcp_closed, Socket} ->
                     io:format("Connection closed.~n"),
@@ -47,7 +48,7 @@ loop(Socket) ->
                     io:format("TCP error ~p.~n", [Error]),
                     ok;
                 {tcp, Socket, ReceivedPacket} ->
-                    io:format("Received ~p from ~p~n", [ReceivedPacket, peer_address(Socket)]),
+                    io:format("Received ~p from ~s~n", [ReceivedPacket, peer_address(Socket)]),
                     timer:sleep(1000),
                     loop(Socket);
                 Other ->
@@ -76,7 +77,7 @@ maybe_start_network(esp32) ->
     case network:wait_for_sta(Config, 30000) of
         {ok, {Address, Netmask, Gateway}} ->
             io:format(
-                "Acquired IP address: ~p Netmask: ~p Gateway: ~p~n",
+                "Acquired IP address: ~s Netmask: ~s Gateway: ~s~n",
                 [to_string(Address), to_string(Netmask), to_string(Gateway)]
             ),
             ok;
