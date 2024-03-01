@@ -45,10 +45,14 @@ start_network() ->
             {disconnected, fun disconnected/0}
             | maps:get(sta, config:get())
         ]},
-        {sntp, [{host, "pool.ntp.org"}]}
+        {sntp, [
+            {host, "time-d-b.nist.gov"},
+            {synchronized, fun sntp_synchronized/1}
+        ]}
     ],
     case network:start(Config) of
         {ok, _Pid} ->
+            io:format("Network started.~n"),
             timer:sleep(infinity);
         Error ->
             Error
@@ -75,6 +79,9 @@ got_ip(IpInfo) ->
 
 disconnected() ->
     io:format("STA disconnected.~n").
+
+sntp_synchronized({TVSec, TVUsec}) ->
+    io:format("Synchronized time with SNTP server. TVSec=~p TVUsec=~p~n", [TVSec, TVUsec]).
 
 verify_platform(esp32) ->
     ok;
