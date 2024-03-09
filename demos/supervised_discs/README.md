@@ -1,3 +1,9 @@
+<!---
+  Copyright 2023 Paul Guyot <pguyot@kallisys.net>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `supervised_discs` Application
 
 Welcome to the `supervised_discs` AtomVM application.

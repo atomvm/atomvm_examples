@@ -1,3 +1,9 @@
+<!---
+  Copyright 2023 Fred Dushin <fred@dushin.net>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `wifi` Application
 
 Welcome to the `wifi` AtomVM application.
@@ -11,6 +17,6 @@ For general information about building and executing Erlang AtomVM example progr
 > **IMPORTANT** If you are running this example program on a device that supports WiFi (e.g., the ESP32 or Pico W), you must first copy the `src/config.erl-template` file to set `src/config.erl` and edit the WiFi Access Point SSID and PSK to which the ESP32 device is to connect before building this application:
 
     sta => [
-        {ssid, "my_sta_ssid"},
-        {psk, "my_sta_psk"}
+        {ssid, <<"my_sta_ssid">>},
+        {psk, <<"my_sta_psk">>}
     ]

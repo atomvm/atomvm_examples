@@ -1,3 +1,9 @@
+<!---
+  Copyright 2023 Fred Dushin <fred@dushin.net>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `deep_sleep` Application
 
 Welcome to the `deep_sleep` AtomVM application.
