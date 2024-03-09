@@ -1,3 +1,9 @@
+<!---
+  Copyright 2018-2024 Fred Dushin <fred@dushin.net>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # AtomVM Example Programs
 
 Welcome to the AtomVM Example Programs repository!
