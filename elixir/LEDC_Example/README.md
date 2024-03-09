@@ -1,3 +1,9 @@
+<!---
+  Copyright  2022 Winford (Uncle Grumpy) <winford@object.stream>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `LEDC_Example` Application
 
 Welcome to the `LEDC_Example` AtomVM application.
