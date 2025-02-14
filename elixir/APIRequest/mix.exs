@@ -1,15 +1,15 @@
-defmodule HelloWorld.MixProject do
+defmodule APIRequest.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :HelloWorld,
+      app: :APIRequest,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       atomvm: [
-        start: HelloWorld,
+        start: APIRequest,
         flash_offset: 0x250000
       ]
     ]

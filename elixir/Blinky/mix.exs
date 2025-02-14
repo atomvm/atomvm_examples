@@ -10,7 +10,7 @@ defmodule Blinky.MixProject do
       deps: deps(),
       atomvm: [
         start: Blinky,
-        flash_offset: 0x210000
+        flash_offset: 0x250000
       ]
     ]
   end
