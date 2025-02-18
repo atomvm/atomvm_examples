@@ -1,3 +1,9 @@
+<!---
+  Copyright 2019-2020 Davide Bettio <davide@uninstall.it>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `morse_server` Application
 
 Welcome to the `morse_server` AtomVM application.
@@ -42,11 +48,8 @@ For more information about programming on the AtomVM platform, see the [AtomVM P
 | Platform       | Supported |
 |----------------|-----------|
 | `esp32`        |    ✅     |
+| `pico`         |    ❌     |
 | `stm32`        |    ❌     |
 | `generic_unix` |    ❌     |
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../../erlang/README.md).
-
-
-
-

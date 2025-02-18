@@ -1,3 +1,9 @@
+<!---
+  Copyright 2023 Fred Dushin <fred@dushin.net>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `hello_world` Application
 
 Welcome to the `hello_world` AtomVM application.

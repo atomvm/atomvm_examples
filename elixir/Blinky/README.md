@@ -1,3 +1,9 @@
+<!---
+  Copyright 2018 Davide Bettio <davide@uninstall.it>
+
+  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+
 # `Blinky` Application
 
 Welcome to the `Blinky` AtomVM application.
