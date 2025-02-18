@@ -1,5 +1,6 @@
 _build/*
 _checkouts/*
+lib/Secrets.ex
 src/config.erl
 rebar.lock
 *.avm

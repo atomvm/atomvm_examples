@@ -1,16 +1,16 @@
 #
 # This file is part of AtomVM.
 #
-# Copyright 2018 Davide Bettio <davide@uninstall.it>
+# Copyright 2025 Tommaso Maioli <tommaso.maioli@gmail.com>
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# distributed under the License is distributed on an 'AS IS' BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -19,43 +19,45 @@
 #
 
 defmodule APIRequest do
+  import Secrets
+
   def start() do
-    :io.format(~c"starting API Request application~n")
+    IO.puts("starting API Request application\n")
     spawn(fn -> start_network() end)
 
     case wait_for_network() do
       :ok ->
-        :io.format(~c"Connected to WiFi! Making HTTP request...~n")
+        IO.puts("Connected to WiFi! Making HTTP request...\n")
 
       {:error, reason} ->
-        :io.format(~c"Failed to connect to WiFi: ~p~n", [reason])
+        IO.puts("Failed to connect to WiFi: #{reason}\n")
     end
   end
 
   defp start_network() do
-    :io.format(~c"Starting network...~n")
+    IO.puts("Starting network...\n")
+    wifi_cfg = get_secret(:wifi_cfg)
 
     config = [
       sta: [
         connected: fn ->
-          :io.format(~c"WiFi connected~n")
+          IO.puts("WiFi connected\n")
           spawn(fn -> make_request() end)
         end,
-        got_ip: fn info -> :io.format(~c"Got IP: ~p~n", [info]) end,
-        disconnected: fn -> :io.format(~c"WiFi disconnected~n") end,
-        # Edit these values for your network:
-        ssid: ~c"SSID_NAME",
-        psk: ~c"SSID_PASSWORD"
+        got_ip: fn info -> IO.puts("Got IP: #{info}\n") end,
+        disconnected: fn -> IO.puts("WiFi disconnected\n") end,
+        ssid: wifi_cfg[:ssid],
+        psk: wifi_cfg[:psk]
       ]
     ]
 
     case verify_platform(:atomvm.platform()) do
       :ok ->
-        :io.format(~c"Starting network...~n")
+        IO.puts("Starting network...\n")
 
         case :network.start(config) do
           {:ok, _pid} ->
-            :io.format(~c"Network started.~n")
+            IO.puts("Network started.\n")
             # Keep the network process alive
             Process.sleep(:infinity)
 
@@ -72,7 +74,7 @@ defmodule APIRequest do
   defp verify_platform(platform), do: {:error, {:unsupported_platform, platform}}
 
   defp wait_for_network() do
-    :io.format(~c"Waiting for network...~n")
+    IO.puts("Waiting for network...\n")
 
     receive do
       {:network, :got_ip, _info} -> :ok
@@ -82,24 +84,29 @@ defmodule APIRequest do
   end
 
   defp make_request() do
-    :io.format(~c"Making HTTPS request to api.sunrisesunset.io API...~n")
+    IO.puts("Making HTTPS request to api.sunrisesunset.io API...\n")
 
     ssl_opts = [{:active, false}, {:verify, :verify_none}]
     ok = :ssl.start()
+    IO.puts("TRYING CONN\n")
 
     case :ahttp_client.connect(:https, ~c"api.sunrisesunset.io", 443, ssl_opts) do
       {:ok, conn} ->
+        IO.puts("CONN OK\n")
+
         case :ahttp_client.request(conn, ~c"GET", ~c"/json?lat=38.907192&lng=-77.036873", [], nil) do
           {:ok, conn, ref} ->
-            :io.format(~c"Connection established, receiving response~n")
+            IO.puts("REQ OK\n")
+            IO.puts("Connection established, receiving response\n")
             receive_response(conn, ref, [])
 
           error ->
-            :io.format(~c"Request failed: ~p~n", [error])
+            IO.puts("Request failed: #{inspect(error)}\n")
         end
 
       error ->
-        :io.format(~c"Connection failed: ~p~n", [error])
+        IO.puts("CONN FAILED\n")
+        IO.puts("Connection failed: #{inspect(error)}\n")
     end
 
     ok = :ssl.stop()
@@ -111,7 +118,7 @@ defmodule APIRequest do
         process_responses(conn, ref, responses, acc)
 
       error ->
-        :io.format(~c"Receive failed: ~p~n", [error])
+        IO.puts("Receive failed: #{inspect(error)}\n")
     end
   end
 
@@ -120,7 +127,7 @@ defmodule APIRequest do
 
     case acc do
       [data | _] ->
-        :io.format(~c"Data: ~p~n", [data])
+        IO.puts("Data: #{inspect(data)}\n")
 
       _ ->
         :ok
@@ -128,12 +135,12 @@ defmodule APIRequest do
   end
 
   defp process_responses(conn, ref, [{:status, ref, status} | rest], acc) do
-    :io.format(~c"Status: ~p~n", [status])
+    IO.puts("Status: #{status}\n")
     process_responses(conn, ref, rest, acc)
   end
 
   defp process_responses(conn, ref, [{:header, ref, {name, value}} | rest], acc) do
-    :io.format(~c"Header: ~s: ~s~n", [name, value])
+    IO.puts("Header: #{name}: #{value}\n")
     process_responses(conn, ref, rest, acc)
   end
 
