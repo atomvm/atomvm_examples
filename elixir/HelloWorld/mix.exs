@@ -30,7 +30,7 @@ defmodule HelloWorld.MixProject do
       deps: deps(),
       atomvm: [
         start: HelloWorld,
-        flash_offset: 0x250000
+        flash_offset: 0x210000
       ]
     ]
   end
