@@ -16,7 +16,7 @@ For example, on the ESP32 platform, this program will output the following infor
     PlatformInfo: #{esp32_chip_info => {esp32,50,2,1},esp32_free_heap_size => 245816,esp32_largest_free_block => 116104,esp32_minimum_free_size => 242136,esp_idf_version => "v3.3.4-dirty"}
     ProcessInfo: [{<0.1.0>,[{heap_size,457},{stack_size,12},{message_queue_len,0},{memory,512}]}]
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.org/latest/programmers-guide.html).
 
 ## Supported Platforms
 

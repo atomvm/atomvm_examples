@@ -24,7 +24,7 @@ If the UDP server is running on a separate host from the client application, you
 
 You can use the `udp_server` example program to listen for UDP packets from your running application.  Alternatively, you can use a program such as the [netcat](https://en.wikipedia.org/wiki/Netcat) utility to receive UDP packets from the command line.
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.org/latest/programmers-guide.html).
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).
 

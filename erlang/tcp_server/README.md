@@ -28,7 +28,7 @@ For example:
 
 You can use the `tcp_client` example program to send TCP/IP packets to your running application.  Alternatively, you can use a program such as the [netcat](https://en.wikipedia.org/wiki/Netcat) utility to send TCP packets from the command line.
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.org/latest/programmers-guide.html).
 
 For general information about building and executing Erlang AtomVM example programs, see the Erlang example program [README](../README.md).
 

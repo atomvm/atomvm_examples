@@ -31,6 +31,6 @@ To run this example, depending on how bright you want your led, connect a 220 oh
 
 > Pico-W Note. To use the onboard LED on a `picow` edit lib/Blinky.ex and comment out the current `@pin` definition (change to: `# @pin 2`), and uncomment the definition for the picow onboard LED `@pin` definition: `@pin {:wl, 0}`.
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.org/latest/programmers-guide.html).
 
 For general information about building and executing Elixir AtomVM example programs, see the Elixir example program [README](../README.md).
