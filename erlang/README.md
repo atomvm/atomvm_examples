@@ -41,7 +41,7 @@ To build and run an example in this directory, change your working directory to 
 
 The following generic instructions apply to the Erlang examples in this repository.  Special notes about building and running the example programs that deviate from these instructions are noted in the README file for the particular example program.
 
-These instructions make use of the [`atomvm_rebar3_plugin`](https://atomvm.github.io/atomvm_rebar3_plugin).  For more information about AtomVM tooling, please see the [AtomVM Tooling](https://www.atomvm.net/doc/master/atomvm-tooling.html) documentation.
+These instructions make use of the [`atomvm_rebar3_plugin`](https://atomvm.github.io/atomvm_rebar3_plugin).  For more information about AtomVM tooling, please see the [AtomVM Tooling](https://doc.atomvm.org/latest/atomvm-tooling.html) documentation.
 
 ### Building
 
@@ -73,7 +73,7 @@ To run this application on the STM32 platform, you must flash the application to
 
 #### Flashing onto an STM32 Device
 
-The STM32 platform requires that the core AtomVM library be included in the application you are targeting for the device.  For information about how to obtain this library, see the [AtomVM Tooling](https://www.atomvm.net/doc/master/atomvm-tooling.html) documentation.
+The STM32 platform requires that the core AtomVM library be included in the application you are targeting for the device.  For information about how to obtain this library, see the [AtomVM Tooling](https://doc.atomvm.org/latest/atomvm-tooling.html) documentation.
 
 Once you have obtained this library, you must use the `packeam` task to create the AVM file to deploy to your device.  Specify the path to the AtomVM core library using the `-e` option, e.g.,
 
@@ -115,4 +115,4 @@ To run this application on a generic UNIX platform, supply the path to the gener
 
 where `<example-program>` is the name of the example program.
 
-> Note.  See the AtomVM [Getting Started Guide](https://www.atomvm.net/doc/master/getting-started-guide.html) for information about how to install AtomVM on the generic UNIX platform.
+> Note.  See the AtomVM [Getting Started Guide](https://doc.atomvm.org/latest/getting-started-guide.html) for information about how to install AtomVM on the generic UNIX platform.

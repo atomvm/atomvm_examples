@@ -41,7 +41,7 @@ Your ESP can be reached with a web browser on port 8080 by its IP address or DHC
 
     "http://192.168.0.32:8080"  or  "http://atomvm-240ac458d278:8080"
 
-For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://www.atomvm.net/doc/master/programmers-guide.html).
+For more information about programming on the AtomVM platform, see the [AtomVM Programmers Guide](https://doc.atomvm.org/latest/programmers-guide.html).
 
 ## Supported Platforms
 
