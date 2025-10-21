@@ -23,11 +23,14 @@ defmodule LedcExample.MixProject do
 
   def project do
     [
-      app: :LEDC_Example,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      atomvm: [
+        start: LedcExample,
+        flash_offset: 0x250000
+      ]
     ]
   end
 
