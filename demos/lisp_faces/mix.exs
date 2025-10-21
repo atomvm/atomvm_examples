@@ -30,7 +30,7 @@ defmodule LispFaces.MixProject do
       deps: deps(),
       atomvm: [
         start: Main,
-        flash_offset: 0x210000
+        flash_offset: 0x250000
       ]
     ]
   end
