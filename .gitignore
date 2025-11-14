@@ -2,3 +2,4 @@
 **/deps/**
 **/mix.lock
 **/rebar3.crashdump
+.DS_Store

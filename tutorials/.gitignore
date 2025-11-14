@@ -1,0 +1,24 @@
+# Copyright 2025 Paul Guyot <pguyot@kallisys.net>
+#
+# SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+
+*.beam
+*.ez
+/build
+erl_crash.dump
+
+# Generated tutorial HTML
+build/
+
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Sphinx build artifacts
+docs/_build/
+docs/.doctrees/
