@@ -1,0 +1,9 @@
+## Copyright 2025 Paul Guyot <pguyot@kallisys.net>
+##
+## SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+sphinx
+myst-parser
+sphinx-rtd-theme
+sphinx-inline-tabs
+schemdraw
+pygments
