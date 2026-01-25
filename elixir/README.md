@@ -16,8 +16,10 @@ Some example programs can only run on specific platform.  The following table su
 |-----------------|-------|-------|------|--------|--------------|
 | Blinky          | ✅ | ✅ | ✅ | ✦ | ❌ |
 | HelloWorld      | ✅ | ✅ | ✅ | ✅ | ✅ |
-| LEDC_Example    | ✅ | ❌ | ❌ | ❌ | ❌ |
-| WifiExample     | ✅ | ❌ | ❌ | ✅ | ❌ |
+| LEDC            | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Wifi            | ✅ | ❌ | ❌ | ✅ | ❌ |
+| EspNvs          | ✅ | ❌ | ❌ | ❌ | ❌ |
+| EspRtcMemory    | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 ✦ Works, but requires editing to use onboard LED, see the README in the examples directory.
 
