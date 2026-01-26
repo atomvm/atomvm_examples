@@ -39,7 +39,7 @@ defmodule LedcExample do
     ledc_hs_timer = [
       {:duty_resolution, 13},
       {:freq_hz, 5000},
-      {:speed_mode,  LEDC.high_speed_mode},
+      {:speed_mode, LEDC.high_speed_mode()},
       {:timer_num, @high_speed_timer}
     ]
 
@@ -48,7 +48,7 @@ defmodule LedcExample do
     ledc_ls_timer = [
       {:duty_resolution, 13},
       {:freq_hz, 5000},
-      {:speed_mode,  LEDC.low_speed_mode},
+      {:speed_mode, LEDC.low_speed_mode()},
       {:timer_num, @low_speed_timer}
     ]
 
@@ -59,7 +59,7 @@ defmodule LedcExample do
         {:channel, 0},
         {:duty, 0},
         {:gpio_num, @led_1},
-        {:speed_mode,  LEDC.high_speed_mode},
+        {:speed_mode, LEDC.high_speed_mode()},
         {:hpoint, 0},
         {:timer_sel, @high_speed_timer}
       ],
@@ -67,7 +67,7 @@ defmodule LedcExample do
         {:channel, 1},
         {:duty, 0},
         {:gpio_num, @led_2},
-        {:speed_mode,  LEDC.high_speed_mode},
+        {:speed_mode, LEDC.high_speed_mode()},
         {:hpoint, 0},
         {:timer_sel, @high_speed_timer}
       ],
@@ -75,7 +75,7 @@ defmodule LedcExample do
         {:channel, 2},
         {:duty, 0},
         {:gpio_num, @led_3},
-        {:speed_mode,  LEDC.low_speed_mode},
+        {:speed_mode, LEDC.low_speed_mode()},
         {:hpoint, 0},
         {:timer_sel, @low_speed_timer}
       ],
@@ -83,7 +83,7 @@ defmodule LedcExample do
         {:channel, 3},
         {:duty, 0},
         {:gpio_num, @led_4},
-        {:speed_mode,  LEDC.low_speed_mode},
+        {:speed_mode, LEDC.low_speed_mode()},
         {:hpoint, 0},
         {:timer_sel, @low_speed_timer}
       ]
@@ -95,19 +95,19 @@ defmodule LedcExample do
   end
 
   def loop(ledc_channel) do
-    :io.format('1. LEDC fade up to duty = ~p~n', [@test_duty])
+    :io.format(~c"1. LEDC fade up to duty = ~p~n", [@test_duty])
     Enum.each(ledc_channel, fn channel_config -> do_stage_1(channel_config) end)
     Process.sleep(@test_fade_time)
 
-    :io.format('2. LEDC fade down to duty = 0~n')
+    :io.format(~c"2. LEDC fade down to duty = 0~n")
     Enum.each(ledc_channel, fn channel_config -> do_stage_2(channel_config) end)
     Process.sleep(@test_fade_time)
 
-    :io.format('3. LEDC set duty = ~p without fade~n', [@test_duty])
+    :io.format(~c"3. LEDC set duty = ~p without fade~n", [@test_duty])
     Enum.each(ledc_channel, fn channel_config -> do_stage_3(channel_config) end)
     Process.sleep(@test_fade_time)
 
-    :io.format('4. LEDC set duty = 0 without fade~n')
+    :io.format(~c"4. LEDC set duty = 0 without fade~n")
     Enum.each(ledc_channel, fn channel_config -> do_stage_4(channel_config) end)
     Process.sleep(@test_fade_time)
 
@@ -118,14 +118,14 @@ defmodule LedcExample do
     speed_mode = :proplists.get_value(:speed_mode, channel_config)
     channel = :proplists.get_value(:channel, channel_config)
     :ok = LEDC.set_fade_with_time(speed_mode, channel, @test_duty, @test_fade_time)
-    :ok = LEDC.fade_start(speed_mode, channel, LEDC.fade_no_wait)
+    :ok = LEDC.fade_start(speed_mode, channel, LEDC.fade_no_wait())
   end
 
   defp do_stage_2(channel_config) do
     speed_mode = :proplists.get_value(:speed_mode, channel_config)
     channel = :proplists.get_value(:channel, channel_config)
     :ok = LEDC.set_fade_with_time(speed_mode, channel, 0, @test_fade_time)
-    :ok = LEDC.fade_start(speed_mode, channel, LEDC.fade_no_wait)
+    :ok = LEDC.fade_start(speed_mode, channel, LEDC.fade_no_wait())
   end
 
   defp do_stage_3(channel_config) do

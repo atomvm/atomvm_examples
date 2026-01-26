@@ -27,7 +27,7 @@ start() ->
     Config = [
         {sta, [
             {ssid, esp:nvs_get_binary(atomvm, sta_ssid, <<"myssid">>)},
-            {psk,  esp:nvs_get_binary(atomvm, sta_psk, <<"mypsk">>)},
+            {psk, esp:nvs_get_binary(atomvm, sta_psk, <<"mypsk">>)},
             {connected, fun() -> Self ! connected end},
             {got_ip, fun(IpInfo) -> Self ! {ok, IpInfo} end},
             {disconnected, fun() -> Self ! disconnected end}
@@ -41,18 +41,20 @@ start() ->
     end.
 
 handle_req("GET", [], Conn) ->
-    Body = <<"<html>
-                <body>
-                    <h1>Morse Encoder</h1>
-                    <form method=\"post\">
-                        <p>Text: <input type=\"text\" name=\"text\"></p>
-                        <p>GPIO: <input type=\"text\" name=\"gpio\" value=\"2\"></p>
-                        <input type=\"submit\" value=\"Submit\">
-                    </form>
-                </body>
-             </html>">>,
+    Body =
+        <<
+            "<html>\n"
+            "                <body>\n"
+            "                    <h1>Morse Encoder</h1>\n"
+            "                    <form method=\"post\">\n"
+            "                        <p>Text: <input type=\"text\" name=\"text\"></p>\n"
+            "                        <p>GPIO: <input type=\"text\" name=\"gpio\" value=\"2\"></p>\n"
+            "                        <input type=\"submit\" value=\"Submit\">\n"
+            "                    </form>\n"
+            "                </body>\n"
+            "             </html>"
+        >>,
     http_server:reply(200, Body, Conn);
-
 handle_req("POST", [], Conn) ->
     ParamsBody = proplists:get_value(body_chunk, Conn),
     Params = http_server:parse_query_string(ParamsBody),
@@ -65,14 +67,21 @@ handle_req("POST", [], Conn) ->
 
     spawn(fun() -> blink_led(GPIONum, MorseText) end),
 
-    Body = [<<"<html>
-                <body>
-                    <h1>Text Encoded</h1>">>,
-                    <<"<p>">>, MorseText, <<"</p1>
-                </body>
-             </html>">>],
+    Body = [
+        <<
+            "<html>\n"
+            "                <body>\n"
+            "                    <h1>Text Encoded</h1>"
+        >>,
+        <<"<p>">>,
+        MorseText,
+        <<
+            "</p1>\n"
+            "                </body>\n"
+            "             </html>"
+        >>
+    ],
     http_server:reply(200, Body, Conn);
-
 handle_req(Method, Path, Conn) ->
     erlang:display(Conn),
     erlang:display({Method, Path}),
@@ -108,14 +117,12 @@ get_gpio() ->
         undefined ->
             GPIO = gpio:open(),
             GPIO;
-
         GPIO ->
             GPIO
     end.
 
 blink_led(undefined, _L) ->
     ok;
-
 blink_led(GPIONum, L) ->
     GPIO = get_gpio(),
     gpio:set_direction(GPIO, GPIONum, output),
@@ -123,19 +130,16 @@ blink_led(GPIONum, L) ->
 
 blink_led(_GPIO, _GPIONum, []) ->
     ok;
-
 blink_led(GPIO, GPIONum, [H | T]) ->
     case H of
         $\s ->
             gpio:set_level(GPIO, GPIONum, low),
             timer:sleep(120);
-
         $. ->
             gpio:set_level(GPIO, GPIONum, high),
             timer:sleep(120),
             gpio:set_level(GPIO, GPIONum, low),
             timer:sleep(120);
-
         $- ->
             gpio:set_level(GPIO, GPIONum, high),
             timer:sleep(120 * 3),
@@ -149,7 +153,6 @@ morse_encode(L) ->
 
 morse_encode([], Acc) ->
     Acc;
-
 morse_encode([H | L], Acc) ->
     M = to_morse(string:to_upper(H)),
     morse_encode(L, Acc ++ M).
@@ -167,7 +170,7 @@ to_morse(C) ->
         $7 -> "--...   ";
         $8 -> "---..   ";
         $9 -> "----.   ";
-        $A -> ".-"   ;
+        $A -> ".-";
         $B -> "-...   ";
         $C -> "-.-.   ";
         $D -> "-..   ";

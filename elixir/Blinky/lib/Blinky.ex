@@ -30,7 +30,7 @@ defmodule Blinky do
   end
 
   defp loop(pin, level) do
-    :io.format('Setting pin ~p ~p~n', [pin, level])
+    :io.format(~c"Setting pin ~p ~p~n", [pin, level])
     GPIO.digital_write(pin, level)
     Process.sleep(1000)
     loop(pin, toggle(level))
@@ -55,19 +55,25 @@ defmodule Blinky do
 
   defp platform_gpio_setup() do
     case :atomvm.platform() do
-      :esp32 -> GPIO.set_pin_mode(pin(), :output)
-      :stm32 -> GPIO.set_pin_mode(pin(), :output)
+      :esp32 ->
+        GPIO.set_pin_mode(pin(), :output)
+
+      :stm32 ->
+        GPIO.set_pin_mode(pin(), :output)
+
       :pico ->
         case @pin do
-          {:wl, 0} -> :ok
+          {:wl, 0} ->
+            :ok
+
           pin ->
             GPIO.init(pin)
             GPIO.set_pin_mode(pin, :output)
         end
+
       unsupported ->
         :io.format("Platform ~p is not supported.~n", [unsupported])
         :erlang.exit({:error, {:unsupported_platform, unsupported}})
     end
   end
-
 end

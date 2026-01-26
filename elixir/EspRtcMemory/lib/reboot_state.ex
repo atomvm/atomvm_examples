@@ -25,4 +25,3 @@ defmodule RebootState do
 
   defstruct count: 0
 end
-

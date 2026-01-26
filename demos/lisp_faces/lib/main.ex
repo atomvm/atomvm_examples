@@ -41,7 +41,7 @@ defmodule Main do
     :gen_server.call(
       t,
       {:write,
-       :erlang.integer_to_list(:erlang.system_info(:process_count)) ++ ' running processes.\n'},
+       :erlang.integer_to_list(:erlang.system_info(:process_count)) ++ ~c" running processes.\n"},
       60000
     )
 
