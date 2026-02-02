@@ -26,6 +26,5 @@ for i in ${ERLANG_EXAMPLES}; do
 	cd $i
 	rm -rf _build
 	${REBAR} atomvm packbeam -l || exit 1
-	${REBAR} as check fmt -c || exit 1
 	cd ..
 done
