@@ -28,3 +28,25 @@ for i in ${ERLANG_EXAMPLES}; do
 	${REBAR} atomvm packbeam -l || exit 1
 	cd ..
 done
+cd ..
+cd elixir
+ELIXIR_EXAMPLES="$(/bin/ls | grep -v README.md)"
+for i in ${ELIXIR_EXAMPLES}; do
+	cd $i
+	rm -rf _build
+	mix deps.get && mix atomvm.packbeam || exit 1
+	cd ..
+done
+cd ..
+cd demos
+DEMO_EXAMPLES="$(/bin/ls | grep -v README.md)"
+for i in ${DEMO_EXAMPLES}; do
+	cd $i
+	rm -rf _build
+	if [ -f mix.exs ]; then
+		mix deps.get && mix atomvm.packbeam || exit 1
+	else
+		${REBAR} atomvm packbeam -l || exit 1
+	fi
+	cd ..
+done

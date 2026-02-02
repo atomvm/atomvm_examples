@@ -10,32 +10,22 @@ on: ["push", "pull_request"]
 
 jobs:
   build_erlang_examples:
-    name: "Build Erlang Examples"
+    name: "Build Erlang/Elixir Examples"
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: true
 
     steps:
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "26"
+          elixir-version: "1.18"
+          rebar3-version: "3.24.0"
 
-    - uses: erlef/setup-beam@v1
-      with:
-        otp-version: "24"
-        elixir-version: "1.11"
+      - name: Checkout repo
+        uses: actions/checkout@v6
 
-    - name: Checkout repo
-      uses: actions/checkout@v2
-
-    # - name: "APT update"
-    #   run: sudo apt update -y
-
-    - name: "Build rebar3"
-      run: |
-        cd /tmp
-        git clone https://github.com/erlang/rebar3.git
-        cd rebar3
-        ./bootstrap
-
-    - name: "Build Erlang Example Programs"
-      run: |
-        PATH=/tmp/rebar3:$PATH ./build.sh
+      - name: "Build Erlang/Elixir Example Programs"
+        run: |
+          ./build.sh
