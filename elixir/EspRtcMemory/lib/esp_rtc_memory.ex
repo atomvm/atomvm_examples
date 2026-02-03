@@ -83,7 +83,8 @@ defmodule EspRtcMemory do
     |> :esp.rtc_slow_set_binary()
   end
 
-  defp increment_state(%RebootState{count: count} = state) when is_integer(count) and count >= 0 do
+  defp increment_state(%RebootState{count: count} = state)
+       when is_integer(count) and count >= 0 do
     new_count = count + 1
     IO.puts("This device has restarted #{new_count} time(s).")
     %RebootState{state | count: new_count}
@@ -97,4 +98,3 @@ defmodule EspRtcMemory do
   defp verify_platform(:esp32), do: :ok
   defp verify_platform(platform), do: {:error, {:unsupported_platform, platform}}
 end
-

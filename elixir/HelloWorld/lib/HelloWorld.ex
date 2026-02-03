@@ -19,9 +19,7 @@
 #
 
 defmodule HelloWorld do
-
   def start() do
-    :io.format('Hello World~n')
+    :io.format(~c"Hello World~n")
   end
-
 end

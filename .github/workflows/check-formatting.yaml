@@ -1,0 +1,55 @@
+#
+#  Copyright 2022 Davide Bettio <davide@uninstall.it>
+#
+#  SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+#
+
+name: "Check formatting"
+
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+      - "**/*.ex"
+      - "**/*.exs"
+      - "**/*.erl"
+      - "**/*.hrl"
+      - "**/*.src"
+      - "**/rebar.config"
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - "**/*.ex"
+      - "**/*.exs"
+      - "**/*.erl"
+      - "**/*.hrl"
+      - "**/*.src"
+      - "**/rebar.config"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref != 'refs/heads/main' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  erlfmt-check:
+    runs-on: ubuntu-24.04
+    container: erlang:28
+    steps:
+      - uses: actions/checkout@v6
+      - name: "Check formatting with Erlang fmt"
+        run: |
+          cd ..
+          git clone --depth 1 -b v1.7.0 https://github.com/WhatsApp/erlfmt.git
+          cd erlfmt
+          rebar3 as release escriptize
+          cd ../atomvm_examples
+          find . -name *.erl | xargs ../erlfmt/_build/release/bin/erlfmt -c
+
+  mix-format-check:
+    runs-on: ubuntu-24.04
+    container: elixir:1.17.1
+    steps:
+      - uses: actions/checkout@v6
+      - name: "Check formatting with Elixir mix format"
+        run: |
+          mix format --check-formatted "**/*.{ex,exs}"
